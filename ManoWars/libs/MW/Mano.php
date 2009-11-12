@@ -1,7 +1,7 @@
 <?php
 class MW_Mano
 {
-    
+    private $name;
     private $atk;
     private $def;
     
@@ -28,9 +28,9 @@ class MW_Mano
         return $this->getDef() + $this->getRandomBonus();
     }
     
-    private function getRandomBonus()
+    public function getRandomBonus()
     {
-        
+        return trim(file_get_contents('http://www.random.org/integers/?num=1&min=1&max=10&col=1&base=10&format=plain&rnd=new'));
     }
 	/**
      * @param $def the $def to set

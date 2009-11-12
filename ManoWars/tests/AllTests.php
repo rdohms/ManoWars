@@ -1,4 +1,7 @@
 <?php
+
+require '../init.php';
+
 /**
  * Static test suite.
  */
