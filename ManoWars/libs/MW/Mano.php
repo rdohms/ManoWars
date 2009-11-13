@@ -4,37 +4,58 @@ class MW_Mano
     private $name;
     private $atk;
     private $def;
-    
-    private $output;
+    private $health;
     
     function __construct ($name)
     {
-        $this->output = new MW_Output();
-        
         $this->setName($name);
-        $this->output->output("Mano ".$name. " pronto para batalha!");
+        $this->resetHealth();
     }
-    
     
     public function attack(MW_Mano $victim)
     {
-        $atk = $this->getAtk() + $this->getRandomBonus();
-        if ($atk > $victim->defend()){
-            return true;
+        $atk = $this->getAtk() + $this->getRandom();
+        $def = $victim->defend();
+        
+        $dmgMultiplier = $this->getRandom(1,100)/100;
+        
+        if ($atk > $def){
+            $dmg = round($atk * $dmgMultiplier);
+            $victim->hurt( $dmg );
+            $action = "%s did %d damage on %s";
         }else{
-            return false;
+            $dmg = round($def * $dmgMultiplier);
+            $this->hurt( $dmg );
+            $action = "%s took %d damage from %s";
+            
         }
         
+        return sprintf($action, $this->getName(), $dmg, $victim->getName());
     }
     
     public function defend()
     {
-        return $this->getDef() + $this->getRandomBonus();
+        return $this->getDef() + $this->getRandom();
     }
     
-    public function getRandomBonus()
+    public function getRandom($min = 1, $max = 10)
     {
-        return trim(file_get_contents('http://www.random.org/integers/?num=1&min=1&max=10&col=1&base=10&format=plain&rnd=new'));
+        return trim(file_get_contents('http://www.ranxdom.org/integers/?num=1&min='.$min.'&max='.$max.'&col=1&base=10&format=plain&rnd=new'));
+    }
+    
+    public function resetHealth()
+    {
+        $this->health = 100;
+    }
+    
+    public function hurt($damage)
+    {
+        $this->health = $this->health - $damage;
+    }
+    
+    public function isAlive()
+    {
+        return ($this->health > 0);
     }
     
 	/**
@@ -84,25 +105,9 @@ class MW_Mano
         return $this->atk;
     }
     
-	/**
-     * @param $output the $output to set
-     */
-    public function setOutput($output)
+    public function getHealth()
     {
-        $this->output = $output;
+        return $this->health;
     }
-
-	/**
-     * @return the $output
-     */
-    public function getOutput()
-    {
-        return $this->output;
-    }
-
-
-    
-    
-    
 }
 ?>

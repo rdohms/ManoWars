@@ -3,26 +3,40 @@
 class MW_Battle
 {
 
+    /**
+     * @var MW_Mano
+     */
     private $manoA;
+    
+    /**
+     * @var MW_Mano
+     */
     private $manoB;
-    private $rounds = 3;
     
     public function __construct($manoA, $manoB)
     {
         $this->setManoA($manoA);
         $this->setManoB($manoB);
     
+        $this->manoA->resetHealth();
+        $this->manoB->resetHealth();
+        
     }
     
     public function fight()
     {
+        while($this->manoA->isAlive() && $this->manoB->isAlive()){
+            echo $this->manoA->attack($this->manoB) . PHP_EOL;
+        }
+        
+        if ($this->manoA->isAlive()){
+            return $this->manoA->getName() . " won!" . PHP_EOL;
+        }else{
+            return $this->manoB->getName() . " won!" . PHP_EOL;
+        }
         
     }
     
-    private function round()
-    {
-        
-    }
     
 	/**
      * @param $manoB the $manoB to set
@@ -39,23 +53,6 @@ class MW_Battle
     {
         $this->manoA = $manoA;
     }
-    
-	/**
-     * @param $rounds the $rounds to set
-     */
-    public function setRounds($rounds)
-    {
-        $this->rounds = $rounds;
-    }
-
-	/**
-     * @return the $rounds
-     */
-    public function getRounds()
-    {
-        return $this->rounds;
-    }
-
 
 	/**
      * @return the $manoB

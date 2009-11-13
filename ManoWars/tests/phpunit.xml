@@ -1,0 +1,17 @@
+<phpunit colors="true" verbose="true">
+
+    <logging>
+        <log type="coverage-html" target="_reports" charset="UTF-8"
+         yui="true" highlight="true" />
+    </logging>
+
+    <filter>
+      <blacklist>
+        <directory suffix=".php">../libs/Zend</directory>
+      </blacklist>
+      <whitelist>
+        <directory suffix=".php">../libs/MW</directory>
+      </whitelist>
+    </filter>
+    
+</phpunit>

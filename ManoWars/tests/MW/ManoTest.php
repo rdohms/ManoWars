@@ -36,8 +36,46 @@ class MW_ManoTest extends PHPUnit_Framework_TestCase
         $this->MW_Mano = new MW_Mano('Gil');
         
         $this->assertType('MW_Mano', $this->MW_Mano);
+        $this->assertNull($this->MW_Mano->getAtk());
+        $this->assertNull($this->MW_Mano->getDef());
     }
 
+    public function testResetHealth()
+    {
+        $this->MW_Mano = new MW_Mano('Gil');
+        
+        $this->MW_Mano->resetHealth();
+        
+        $this->assertEquals(100, $this->MW_Mano->getHealth());
+    }
+    
+    public function testHurt()
+    {
+        $this->MW_Mano = new MW_Mano('Gil');
+        
+        $this->MW_Mano->resetHealth();
+        
+        $this->MW_Mano->hurt( 50 );
+        
+        $this->assertEquals(50, $this->MW_Mano->getHealth());
+    }
+    
+    public function testIsAlive(){
+        $this->MW_Mano = new MW_Mano('Gil');
+        $this->MW_Mano->resetHealth();
+        
+        //Verificar vivo ao nascer        
+        $this->assertTrue($this->MW_Mano->isAlive());
+        
+        //Verificar vivo apos se machucar
+        $this->MW_Mano->hurt( 50 );
+        $this->assertTrue($this->MW_Mano->isAlive());
+
+        //Verificar vivo ap—s apanhar ate a morte
+        $this->MW_Mano->hurt( 50 );
+        $this->assertFalse($this->MW_Mano->isAlive());
+        
+    }
     /**
      * Tests MW_Mano->defend()
      */
@@ -62,10 +100,10 @@ class MW_ManoTest extends PHPUnit_Framework_TestCase
     public function testDefendWithoutLuck()
     {
         //Obter Mock
-        $manoMock = $this->getMock('MW_Mano',array('getRandomBonus'), array('John'));
+        $manoMock = $this->getMock('MW_Mano',array('getRandom'), array('John'));
         //Definir que o objeto retorne zero.
         $manoMock->expects($this->any())
-                 ->method('getRandomBonus')
+                 ->method('getRandom')
                  ->will($this->returnValue(0));
         
         //Definir defesa
@@ -80,7 +118,7 @@ class MW_ManoTest extends PHPUnit_Framework_TestCase
      * 
      * @dataProvider provideForAttack
      */
-    public function testAttack($atk, $def, $expectedResult)
+    public function testAttackWithoutLuck($atk, $def, $expectedResult)
     {
         //Vitima
         //Obter Mock
@@ -93,22 +131,22 @@ class MW_ManoTest extends PHPUnit_Framework_TestCase
                  
          //Atacante
         //Obter Mock
-        $manoMock = $this->getMock('MW_Mano',array('getRandomBonus'), array('Gil'));
+        $manoMock = $this->getMock('MW_Mano',array('getRandom'), array('Gil'));
         //Definir que o objeto retorne zero.
         $manoMock->expects($this->any())
-                 ->method('getRandomBonus')
+                 ->method('getRandom')
                  ->will($this->returnValue(0));
         $manoMock->setAtk($atk);
          
-         $this->assertEquals($expectedResult, $manoMock->attack($victMock));
+         $this->assertContains($expectedResult, $manoMock->attack($victMock));
     }
     
     public function provideForAttack()
     {
         return array(
-            array(5, 10, false),
-            array(15, 10, true),
-            array(5, 5, false),
+            array(5, 10, 'took'),
+            array(15, 10, 'did'),
+            array(5, 5, 'took'),
         );
     }
 }
