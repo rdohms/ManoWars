@@ -40,7 +40,7 @@ class MW_Mano
     
     public function getRandom($min = 1, $max = 10)
     {
-        return trim(file_get_contents('http://www.ranxdom.org/integers/?num=1&min='.$min.'&max='.$max.'&col=1&base=10&format=plain&rnd=new'));
+        return trim(file_get_contents('http://www.random.org/integers/?num=1&min='.$min.'&max='.$max.'&col=1&base=10&format=plain&rnd=new'));
     }
     
     public function resetHealth()
