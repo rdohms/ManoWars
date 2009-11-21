@@ -14,10 +14,10 @@ class MW_Mano
     
     public function attack(MW_Mano $victim)
     {
-        $atk = $this->getAtk() + $this->getRandom();
+        $atk = $this->getAtk() + trim(file_get_contents('http://www.random.org/integers/?num=1&min=1&max=10&col=1&base=10&format=plain&rnd=new'));;
         $def = $victim->defend();
         
-        $dmgMultiplier = $this->getRandom(1,100)/100;
+        $dmgMultiplier = trim(file_get_contents('http://www.random.org/integers/?num=1&min=1&max=10&col=1&base=10&format=plain&rnd=new'))/10;
         
         if ($atk > $def){
             $dmg = round($atk * $dmgMultiplier);
@@ -35,12 +35,7 @@ class MW_Mano
     
     public function defend()
     {
-        return $this->getDef() + $this->getRandom();
-    }
-    
-    public function getRandom($min = 1, $max = 10)
-    {
-        return trim(file_get_contents('http://www.random.org/integers/?num=1&min='.$min.'&max='.$max.'&col=1&base=10&format=plain&rnd=new'));
+        return $this->getDef() + trim(file_get_contents('http://www.random.org/integers/?num=1&min=1&max=10&col=1&base=10&format=plain&rnd=new'));
     }
     
     public function resetHealth()
