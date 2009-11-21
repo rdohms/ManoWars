@@ -33,11 +33,13 @@ class MW_ManoTest extends PHPUnit_Framework_TestCase
      */
     public function testConstruct()
     {
-        $this->MW_Mano = new MW_Mano('Gil');
+        $name = "Gil";
+        $this->MW_Mano = new MW_Mano($name);
         
         $this->assertType('MW_Mano', $this->MW_Mano);
         $this->assertNull($this->MW_Mano->getAtk());
         $this->assertNull($this->MW_Mano->getDef());
+        $this->assertEquals($name, $this->MW_Mano->getName());
     }
 
     public function testResetHealth()
@@ -76,6 +78,7 @@ class MW_ManoTest extends PHPUnit_Framework_TestCase
         $this->assertFalse($this->MW_Mano->isAlive());
         
     }
+    
     /**
      * Tests MW_Mano->defend()
      */
@@ -88,7 +91,7 @@ class MW_ManoTest extends PHPUnit_Framework_TestCase
         
         $sgth = $this->MW_Mano->defend();
         
-        $this->assertGreaterThanOrEqual(5, $sgth);
+        $this->assertGreaterThan(5, $sgth);
         
     }
     
