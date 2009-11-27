@@ -16,6 +16,7 @@ class AllTests extends PHPUnit_Framework_TestSuite
         
         $this->addTestSuite('MW_ManoTest');
     }
+
     /**
      * Creates the suite.
      */
