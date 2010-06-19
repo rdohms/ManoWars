@@ -84,7 +84,6 @@ class MW_ManoTest extends PHPUnit_Framework_TestCase
      */
     public function testDefend()
     {
-        $this->markTestSkipped();
         $this->MW_Mano = new MW_Mano('Gil');
         $this->MW_Mano->setDef(5);
         
