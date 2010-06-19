@@ -14,10 +14,10 @@ class MW_Mano
     
     public function attack(MW_Mano $victim)
     {
-        $atk = $this->getAtk() + trim(file_get_contents('http://www.random.org/integers/?num=1&min=1&max=10&col=1&base=10&format=plain&rnd=new'));;
+        $atk = $this->getAtk() + $this->getRandom();
         $def = $victim->defend();
         
-        $dmgMultiplier = trim(file_get_contents('http://www.random.org/integers/?num=1&min=1&max=10&col=1&base=10&format=plain&rnd=new'))/10;
+        $dmgMultiplier = $this->getRandom(1,100)/100;
         
         if ($atk > $def){
             $dmg = round($atk * $dmgMultiplier);
@@ -35,7 +35,12 @@ class MW_Mano
     
     public function defend()
     {
-        return $this->getDef() + trim(file_get_contents('http://www.random.org/integers/?num=1&min=1&max=10&col=1&base=10&format=plain&rnd=new'));
+        return $this->getDef() + $this->getRandom();
+    }
+    
+    public function getRandom($min = 1, $max = 10)
+    {
+        return trim(file_get_contents('http://www.random.org/integers/?num=1&min='.$min.'&max='.$max.'&col=1&base=10&format=plain&rnd=new'));
     }
     
     public function resetHealth()
@@ -53,7 +58,7 @@ class MW_Mano
         return ($this->health > 0);
     }
     
-	/**
+    /**
      * @param $def the $def to set
      */
     public function setDef($def)
@@ -61,14 +66,14 @@ class MW_Mano
         $this->def = $def;
     }
 
-	/**
+    /**
      * @param $atk the $atk to set
      */
     public function setAtk($atk)
     {
         $this->atk = $atk;
     }
-	/**
+    /**
      * @param $name the $name to set
      */
     public function setName($name)
@@ -76,7 +81,7 @@ class MW_Mano
         $this->name = $name;
     }
 
-	/**
+    /**
      * @return the $name
      */
     public function getName()
@@ -84,7 +89,7 @@ class MW_Mano
         return $this->name;
     }
 
-	/**
+    /**
      * @return the $def
      */
     public function getDef()
@@ -92,7 +97,7 @@ class MW_Mano
         return $this->def;
     }
 
-	/**
+    /**
      * @return the $atk
      */
     public function getAtk()
