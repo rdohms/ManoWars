@@ -1,18 +1,33 @@
 <?php
-
+/**
+ * Battle class
+ *
+ * @package Mano Wars
+ * @author Rafael Dohms
+ */
 class MW_Battle
 {
-
     /**
+     * Member of fight.
+     *
      * @var MW_Mano
      */
     private $manoA;
     
     /**
+     * Another member of the fight.
+     *
      * @var MW_Mano
      */
     private $manoB;
     
+    /**
+     * Constructor
+     *
+     * @param MW_Mano $manoA 
+     * @param MW_Mano $manoB 
+     * @author Rafael Dohms
+     */
     public function __construct($manoA, $manoB)
     {
         $this->setManoA($manoA);
@@ -23,6 +38,12 @@ class MW_Battle
         
     }
     
+    /**
+     * Starts the fight.
+     *
+     * @return string
+     * @author Rafael Dohms
+     */
     public function fight()
     {
         while($this->manoA->isAlive() && $this->manoB->isAlive()){
@@ -39,23 +60,29 @@ class MW_Battle
     
     
 	/**
-     * @param $manoB the $manoB to set
+	 * Defines "mano" B.
+	 *
+     * @param MW_Mano $manoB
      */
-    public function setManoB($manoB)
+    public function setManoB(MW_Mano $manoB)
     {
         $this->manoB = $manoB;
     }
 
 	/**
-     * @param $manoA the $manoA to set
+	 * Defines "mano" A.
+	 * 
+     * @param MW_Mano $manoA
      */
-    public function setManoA($manoA)
+    public function setManoA(MW_Mano $manoA)
     {
         $this->manoA = $manoA;
     }
 
 	/**
-     * @return the $manoB
+	 * Returns "Mano" A.
+	 *
+     * @return MW_Mano
      */
     public function getManoB()
     {
@@ -63,7 +90,9 @@ class MW_Battle
     }
 
 	/**
-     * @return the $manoA
+	 * Returns "Mano" B
+	 *
+     * @return MW_Mano
      */
     public function getManoA()
     {

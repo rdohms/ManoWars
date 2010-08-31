@@ -2,3 +2,5 @@
 .project
 .settings/
 ManoWars/tests/_reports/*
+build/*
+.DS_Store

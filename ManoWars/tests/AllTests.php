@@ -1,6 +1,6 @@
 <?php
 
-require '../init.php';
+require_once '../init.php';
 
 /**
  * Static test suite.
@@ -15,6 +15,7 @@ class AllTests extends PHPUnit_Framework_TestSuite
         $this->setName('AllTests');
         
         $this->addTestSuite('MW_ManoTest');
+        $this->addTestSuite('MW_PowerupsTest');
     }
     /**
      * Creates the suite.
